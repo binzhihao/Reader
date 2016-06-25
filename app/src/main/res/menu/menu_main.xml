@@ -4,7 +4,7 @@
     tools:context=".module.main.widget.MainActivity">
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:icon="@mipmap/ic_launcher"
         android:title="@string/action_settings"
         app:showAsAction="never" />
 </menu>

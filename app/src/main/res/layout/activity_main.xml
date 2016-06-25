@@ -17,7 +17,6 @@
             android:id="@+id/appbar"
             layout="@layout/toolbar" />
 
-
         <FrameLayout
             android:id="@+id/frame_content"
             android:layout_width="match_parent"
