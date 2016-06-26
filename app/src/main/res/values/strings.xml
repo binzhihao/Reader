@@ -1,24 +1,20 @@
 <resources>
-    <string name="app_name">网易新闻</string>
-    <string name="action_settings">设置</string>
-
+    <string name="app_name">新闻</string>
+    <string name="action_settings">我的设置</string>
+    <string name="action_search">搜索</string>
+    <string name="action_mode">主题切换</string>
     <string name="navigation_news">新闻</string>
-    <string name="navigation_read">订阅</string>
-    <string name="navigation_images">图片</string>
+    <string name="navigation_images">美图</string>
     <string name="navigation_video">视频</string>
-    <string name="navigation_voted">投票</string>
     <string name="navigation_about">关于</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
     <string name="name">bzh</string>
-
     <string name="top">头条</string>
     <string name="nba">体育</string>
-    <string name="cars">男士</string>
+    <string name="cars">汽车</string>
     <string name="jokes">娱乐</string>
-
     <string name="load_fail">加载数据失败!</string>
     <string name="title_activity_news_detail">新闻详情</string>
 
-    <string name="image_hit">一次只加载20条，查看更多内容请刷新哦。</string>
 </resources>

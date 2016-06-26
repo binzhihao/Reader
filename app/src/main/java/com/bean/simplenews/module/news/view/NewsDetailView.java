@@ -1,15 +1,10 @@
 package com.bean.simplenews.module.news.view;
 
-/**
- * Description :
- * Author : bean
- * Email  : bean.liuling@gmail.com
- * Blog   : http://www.liuling123.com
- * Date   : 2015/12/21
- */
-public interface NewsDetailView {
+import com.bean.simplenews.common.mvp.MVPView;
 
-    void showNewsDetialContent(String newsDetailContent);
+public interface NewsDetailView extends MVPView{
+
+    void showNewsDetailContent(String newsDetailContent);
 
     void showProgress();
 

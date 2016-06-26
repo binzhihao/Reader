@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,36 +14,37 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bean.simplenews.R;
-import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.api.Urls;
+import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.common.base.BaseFragment;
+import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.module.news.NewsAdapter;
-import com.bean.simplenews.module.news.NewsConstants;
-import com.bean.simplenews.module.news.presenter.NewsPresenter;
-import com.bean.simplenews.module.news.presenter.NewsPresenterImpl;
-import com.bean.simplenews.module.news.view.NewsView;
+import com.bean.simplenews.module.news.presenter.NewsListPresenter;
+import com.bean.simplenews.module.news.view.NewsListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewsListFragment extends Fragment implements NewsView, SwipeRefreshLayout.OnRefreshListener {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
-    private static final String TAG = "NewsListFragment";
-    private static final String TYPE = "Type";
+public class NewsListFragment extends BaseFragment<NewsListPresenter> implements NewsListView, SwipeRefreshLayout.OnRefreshListener {
 
-
-    private SwipeRefreshLayout mSwipeRefreshWidget;
-    private RecyclerView mRecyclerView;
+    @BindView(R.id.recycle_view)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.swipe_refresh_widget)
+    SwipeRefreshLayout mSwipeRefreshWidget;
+    private Unbinder unbinder;
     private LinearLayoutManager mLayoutManager;
     private NewsAdapter mAdapter;
     private List<NewsBean> mData;
-    private NewsPresenter mNewsPresenter;
-    private int mType = NewsConstants.NEWS_TYPE_TOP;
-    private int pageIndex = 0;
+    private int mType = 0, mPageIndex = 0;
 
     public static NewsListFragment newInstance(int type) {
         Bundle args = new Bundle();
         NewsListFragment fragment = new NewsListFragment();
-        args.putInt(TYPE, type);
+        args.putInt(Constants.TYPE, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,20 +52,19 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mNewsPresenter = new NewsPresenterImpl(this);
-        mType = getArguments().getInt(TYPE);
+        initPresenter(new NewsListPresenter(this));
+        mType = getArguments().getInt(Constants.TYPE);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_newslist, null);
+        unbinder=ButterKnife.bind(this, view);
 
-        mSwipeRefreshWidget = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_widget);
-        mSwipeRefreshWidget.setColorSchemeResources(R.color.primary, R.color.primary_dark, R.color.primary_light, R.color.accent);
+        mSwipeRefreshWidget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimary_dark, R.color.colorPrimary_accent);
         mSwipeRefreshWidget.setOnRefreshListener(this);
 
-        mRecyclerView = (RecyclerView)view.findViewById(R.id.recycle_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -76,7 +75,7 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
             public void onItemClick(View view, int position) {
                 NewsBean news = mAdapter.getItem(position);
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra(NewsConstants.NEWS, news);
+                intent.putExtra(Constants.NEWS, news);
                 // android.support.v4.app.ActivityCompat is a helper for accessing features in Activity introduced after API level 4
                 // in a backwards compatible fashion. Here it start a activity with a Bundle.
                 ActivityCompat.startActivity(getActivity(), intent, null);
@@ -85,23 +84,49 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             private int lastVisibleItem;
+
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 lastVisibleItem = mLayoutManager.findLastVisibleItemPosition();
             }
+
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.getItemCount() && mAdapter.isShowFooter()) {
                     /* 加载更多 */
-                    mNewsPresenter.loadNews(mType, pageIndex + Urls.PAZE_SIZE);
+                    obtainPresenter().loadNews(mType, mPageIndex + Urls.PAZE_SIZE);
                 }
             }
         });
-
         onRefresh();    // 立即刷新一次
         return view;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
+    @Override
+    public void addNews(List<NewsBean> newsList) {
+        mAdapter.isShowFooter(true);
+        if (mData == null) {
+            mData = new ArrayList<>();
+        }
+        mData.addAll(newsList);
+        if (mPageIndex == 0) {
+            mAdapter.setDate(mData);
+        } else {
+            //如果没有更多数据了,则隐藏footer布局
+            if (newsList == null || newsList.size() == 0) {
+                mAdapter.isShowFooter(false);
+            }
+            mAdapter.notifyDataSetChanged();
+        }
+        mPageIndex += Urls.PAZE_SIZE;
     }
 
     @Override
@@ -110,33 +135,13 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     }
 
     @Override
-    public void addNews(List<NewsBean> newsList) {
-        mAdapter.isShowFooter(true);
-        if(mData == null) {
-            mData = new ArrayList<NewsBean>();
-        }
-        mData.addAll(newsList);
-        if(pageIndex == 0) {
-            mAdapter.setDate(mData);
-        } else {
-            //如果没有更多数据了,则隐藏footer布局
-            if(newsList == null || newsList.size() == 0) {
-                mAdapter.isShowFooter(false);
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-        pageIndex += Urls.PAZE_SIZE;
-    }
-
-
-    @Override
     public void hideProgress() {
         mSwipeRefreshWidget.setRefreshing(false);
     }
 
     @Override
-    public void showLoadFailMsg() {
-        if(pageIndex == 0) {
+    public void showLoadFailure() {
+        if (mPageIndex == 0) {
             mAdapter.isShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
@@ -146,18 +151,18 @@ public class NewsListFragment extends Fragment implements NewsView, SwipeRefresh
     }
 
     @Override
-    public void LoadSuccess(){
+    public void showLoadSuccess() {
         mSwipeRefreshWidget.setBackgroundColor(getResources().getColor(R.color.divider));
     }
 
     @Override
     /* implement the interface from SwipeRefreshLayout */
     public void onRefresh() {
-        pageIndex = 0;
-        if(mData != null) {
+        mPageIndex = 0;
+        if (mData != null) {
             mData.clear();
         }
-        mNewsPresenter.loadNews(mType, pageIndex);
+        obtainPresenter().loadNews(mType, mPageIndex);
     }
 
 }

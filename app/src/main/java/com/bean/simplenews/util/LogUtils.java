@@ -2,48 +2,42 @@ package com.bean.simplenews.util;
 
 import android.util.Log;
 
-/**
- * Description : 日子工具类
- * Author : bean
- * Email  : bean.liuling@gmail.com
- * Blog   : http://www.liuling123.com
- * Date   : 15/12/14
- */
+import com.bean.simplenews.common.Constants;
+
 public class LogUtils {
-    public static final boolean DEBUG = true;
 
     public static void v(String tag, String message) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.v(tag, message);
         }
     }
 
     public static void d(String tag, String message) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.d(tag, message);
         }
     }
 
     public static void i(String tag, String message) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.i(tag, message);
         }
     }
 
     public static void w(String tag, String message) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.w(tag, message);
         }
     }
 
     public static void e(String tag, String message) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.e(tag, message);
         }
     }
 
     public static void e(String tag, String message, Exception e) {
-        if(DEBUG) {
+        if(Constants.DEBUG) {
             Log.e(tag, message, e);
         }
     }

@@ -10,9 +10,8 @@ import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import com.bean.simplenews.R;
-import com.bean.simplenews.common.BaseActivity;
+import com.bean.simplenews.common.base.BaseActivity;
 import com.bean.simplenews.module.about.AboutFragment;
-import com.bean.simplenews.module.image.widget.ImageFragment;
 import com.bean.simplenews.module.main.presenter.MainPresenter;
 import com.bean.simplenews.module.main.view.MainView;
 import com.bean.simplenews.module.news.widget.NewsFragment;
@@ -38,7 +37,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initPresenter();
+        initPresenter(new MainPresenter(this));
         initView();
         switch2News();  // 初始页面
     }
@@ -46,6 +45,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        setOptionalIconsVisible(menu);
         return true;
     }
 
@@ -70,29 +70,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
     }
 
     @Override
-    public void switch2Images() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ImageFragment()).commit();
-        mToolbar.setTitle(R.string.navigation_images);
-    }
-
-    @Override
     public void switch2About() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new AboutFragment()).commit();
         mToolbar.setTitle(R.string.navigation_about);
     }
 
-    private void initPresenter(){
-        mPresenter=new MainPresenter(this);
-    }
-
     private void initView(){
         initToolbar(mToolbar,mDrawerLayout,mMainContent,mNavigationView,R.string.drawer_open,R.string.drawer_close);
-        setTitle(R.string.navigation_news);
+        //setTitle(R.string.navigation_news);
         mNavigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        mPresenter.switchNavigation(menuItem.getItemId());
+                        obtainPresenter().switchNavigation(menuItem.getItemId());
                         menuItem.setChecked(true);
                         mDrawerLayout.closeDrawers();
                         return true;
