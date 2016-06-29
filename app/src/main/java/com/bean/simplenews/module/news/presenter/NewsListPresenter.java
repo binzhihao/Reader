@@ -4,15 +4,15 @@ import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.api.Urls;
 import com.bean.simplenews.common.base.BasePresenter;
 import com.bean.simplenews.common.Constants;
-import com.bean.simplenews.module.news.model.INewsModel;
+import com.bean.simplenews.module.news.model.NewsModelBiz;
 import com.bean.simplenews.module.news.model.NewsModel;
 import com.bean.simplenews.module.news.view.NewsListView;
 
 import java.util.List;
 
-public class NewsListPresenter extends BasePresenter<NewsListView> implements INewsListPresenter, NewsModel.OnLoadNewsListListener {
+public class NewsListPresenter extends BasePresenter<NewsListView> implements NewsListPresenterBiz, NewsModel.OnLoadNewsListListener {
 
-    private INewsModel mNewsModel;
+    private NewsModelBiz mNewsModel;
 
     public NewsListPresenter(NewsListView newsListView) {
         onInitial(newsListView);
@@ -22,6 +22,12 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements IN
     public void onInitial(NewsListView view) {
         super.onInitial(view);
         mNewsModel = new NewsModel();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mNewsModel = null;
     }
 
     @Override
@@ -36,15 +42,19 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements IN
 
     @Override
     public void onSuccess(List<NewsBean> list) {
-        obtainView().hideProgress();
-        obtainView().addNews(list);
-        obtainView().showLoadSuccess();
+        if(isViewAttached()) {
+            obtainView().hideProgress();
+            obtainView().addNews(list);
+            obtainView().showLoadSuccess();
+        }
     }
 
     @Override
     public void onFailure(String msg, Exception e) {
-        obtainView().hideProgress();
-        obtainView().showLoadFailure();
+        if(isViewAttached()) {
+            obtainView().hideProgress();
+            obtainView().showLoadFailure();
+        }
     }
 
     /**

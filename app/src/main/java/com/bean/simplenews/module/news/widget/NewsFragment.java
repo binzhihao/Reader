@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.bean.simplenews.R;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.adapter.BaseFragmentPagerAdapter;
+import com.bean.simplenews.util.LogUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ public class NewsFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_news, null);
         unbinder=ButterKnife.bind(this, view);
 
@@ -37,7 +39,7 @@ public class NewsFragment extends Fragment {
         adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_CARS), getString(R.string.cars));
         adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_JOKES), getString(R.string.jokes));
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(1);
+        mViewPager.setOffscreenPageLimit(3);
         mTabLayout.setupWithViewPager(mViewPager);  // 将两者关联起来
 
         return view;
@@ -46,6 +48,6 @@ public class NewsFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-          unbinder.unbind();  // necessary in fragment
+        unbinder.unbind();  // necessary in fragment
     }
 }

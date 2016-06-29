@@ -2,6 +2,7 @@ package com.bean.simplenews.common.base;
 
 import android.support.v4.app.Fragment;
 
+import com.bean.simplenews.common.mvp.MVPView;
 import com.bean.simplenews.util.LogUtils;
 
 public class BaseFragment<P extends BasePresenter> extends Fragment{
@@ -10,7 +11,6 @@ public class BaseFragment<P extends BasePresenter> extends Fragment{
 
     protected boolean initPresenter(P presenter){
         if(presenter==null){
-            LogUtils.e("BaseFragment","presenter is null");
             return false;
         }
         Presenter=presenter;
@@ -22,11 +22,11 @@ public class BaseFragment<P extends BasePresenter> extends Fragment{
     }
 
     @Override
-    public void onDestroy() {
+    public void onDestroyView() {
         if(Presenter!=null){
             Presenter.onDestroy();
             Presenter=null;
         }
-        super.onDestroy();
+        super.onDestroyView();
     }
 }

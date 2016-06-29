@@ -2,6 +2,7 @@ package com.bean.simplenews.common.base;
 
 import com.bean.simplenews.common.mvp.MVPPresenter;
 import com.bean.simplenews.common.mvp.MVPView;
+import com.bean.simplenews.util.LogUtils;
 
 public class BasePresenter<V extends MVPView> implements MVPPresenter<V> {
 
@@ -9,12 +10,14 @@ public class BasePresenter<V extends MVPView> implements MVPPresenter<V> {
 
     public void onInitial(V view) {
         attachView(view);
-        // TODO: other initialization
     }
 
     public void onDestroy() {
         detachView();
-        // TODO: other actions
+    }
+
+    public boolean isViewAttached(){
+        return MVPView!=null;
     }
 
     @Override

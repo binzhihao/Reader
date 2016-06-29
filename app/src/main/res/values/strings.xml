@@ -1,15 +1,14 @@
 <resources>
-    <string name="app_name">新闻</string>
-    <string name="action_settings">我的设置</string>
+    <string name="app_name">头条</string>
+    <string name="action_settings">应用设置</string>
     <string name="action_search">搜索</string>
-    <string name="action_mode">主题切换</string>
+    <string name="action_mode">夜间模式</string>
     <string name="navigation_news">新闻</string>
     <string name="navigation_images">美图</string>
     <string name="navigation_video">视频</string>
     <string name="navigation_about">关于</string>
     <string name="drawer_open">Open</string>
     <string name="drawer_close">Close</string>
-    <string name="name">bzh</string>
     <string name="top">头条</string>
     <string name="nba">体育</string>
     <string name="cars">汽车</string>

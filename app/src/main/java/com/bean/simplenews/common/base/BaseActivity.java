@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 
 import com.bean.simplenews.common.Constants;
+import com.bean.simplenews.common.mvp.MVPView;
 import com.bean.simplenews.util.LogUtils;
 
 import java.lang.reflect.Method;
@@ -67,7 +68,7 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
             @Override
             public void onDrawerSlide(View view, float offset) {
                 super.onDrawerSlide(view, offset);
-                main.scrollTo(-(int) (navigationView.getWidth() * offset), 0);
+                main.scrollTo(-(int) (navigationView.getWidth() * offset), 0); //轻微影响性能
             }
         };
         mDrawerToggle.syncState();

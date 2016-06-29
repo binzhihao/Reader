@@ -52,17 +52,18 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initPresenter(new NewsListPresenter(this));
         mType = getArguments().getInt(Constants.TYPE);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_newslist, null);
+        initPresenter(new NewsListPresenter(this));
         unbinder=ButterKnife.bind(this, view);
 
-        mSwipeRefreshWidget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimary_dark, R.color.colorPrimary_accent);
+        mSwipeRefreshWidget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimary_dark, R.color.colorAccent);
         mSwipeRefreshWidget.setOnRefreshListener(this);
 
         mRecyclerView.setHasFixedSize(true);
@@ -105,8 +106,8 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
         unbinder.unbind();
     }
 
@@ -147,12 +148,12 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         }
         View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.drawer_layout);
         Snackbar.make(view, getString(R.string.load_fail), Snackbar.LENGTH_SHORT).show();
-        mSwipeRefreshWidget.setBackgroundResource(R.drawable.base_empty_view);
+        //mSwipeRefreshWidget.setBackgroundResource(R.drawable.base_empty_view);
     }
 
     @Override
     public void showLoadSuccess() {
-        mSwipeRefreshWidget.setBackgroundColor(getResources().getColor(R.color.divider));
+        //mSwipeRefreshWidget.setBackgroundColor(getResources().getColor(R.color.divider));
     }
 
     @Override

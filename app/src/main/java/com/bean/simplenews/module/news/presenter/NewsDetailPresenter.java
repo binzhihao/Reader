@@ -2,13 +2,13 @@ package com.bean.simplenews.module.news.presenter;
 
 import com.bean.simplenews.bean.NewsDetailBean;
 import com.bean.simplenews.common.base.BasePresenter;
-import com.bean.simplenews.module.news.model.INewsModel;
+import com.bean.simplenews.module.news.model.NewsModelBiz;
 import com.bean.simplenews.module.news.model.NewsModel;
 import com.bean.simplenews.module.news.view.NewsDetailView;
 
-public class NewsDetailPresenter extends BasePresenter<NewsDetailView> implements INewsDetailPresenter, NewsModel.OnLoadNewsDetailListener {
+public class NewsDetailPresenter extends BasePresenter<NewsDetailView> implements NewsDetailPresenterBiz, NewsModel.OnLoadNewsDetailListener {
 
-    private INewsModel mNewsModel;
+    private NewsModelBiz mNewsModel;
 
     public NewsDetailPresenter(NewsDetailView NewsDetailView) {
         onInitial(NewsDetailView);

@@ -9,7 +9,7 @@ import com.bean.simplenews.util.OkHttpUtils;
 
 import java.util.List;
 
-public class NewsModel implements INewsModel {
+public class NewsModel implements NewsModelBiz {
 
     /**
      * 加载新闻列表
@@ -22,12 +22,12 @@ public class NewsModel implements INewsModel {
             @Override
             public void onSuccess(String response) {
                 List<NewsBean> newsBeanList = NewsJsonUtils.readJsonNewsBeans(response, getID(type));
-                listener.onSuccess(newsBeanList);
+                if(listener!=null) listener.onSuccess(newsBeanList);
             }
 
             @Override
             public void onFailure(Exception e) {
-                listener.onFailure("load news list failure.", e);
+                if(listener!=null) listener.onFailure("load news list failure.", e);
             }
         };
         OkHttpUtils.get(url, loadNewsCallback);

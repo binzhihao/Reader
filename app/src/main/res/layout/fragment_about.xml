@@ -12,37 +12,4 @@
         android:layout_gravity="center_horizontal"
         android:text="^_^低仿网易新闻4.0版本客户端^_^" />
 
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="http://www.google.com/design/spec/material-design/introduction.html" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="https://github.com/google/gson" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="https://github.com/bumptech/glide" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:autoLink="web"
-        android:textSize="16sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="https://github.com/square/okhttp" />
-
 </LinearLayout>

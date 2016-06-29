@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.model;
 
-public interface INewsModel {
+public interface NewsModelBiz {
 
     void loadNews(String url, int type, NewsModel.OnLoadNewsListListener listener);
 

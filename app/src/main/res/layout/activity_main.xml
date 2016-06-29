@@ -13,6 +13,7 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <include
             android:id="@+id/appbar"
             layout="@layout/toolbar" />
@@ -23,7 +24,13 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/appbar"
             android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/base_empty_view"
+                android:layout_gravity="center"/>
+        </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
 
@@ -32,6 +39,9 @@
         android:layout_width="260dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:itemTextColor="@color/navigation_text_color"
+        app:itemTextAppearance="@style/NavigationTextStyle"
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/navigation_menu" />
 

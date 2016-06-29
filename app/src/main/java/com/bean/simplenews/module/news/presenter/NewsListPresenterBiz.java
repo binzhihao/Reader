@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.presenter;
 
-public interface INewsListPresenter {
+public interface NewsListPresenterBiz {
 
     void loadNews(final int type, final int pageIndex);
 
