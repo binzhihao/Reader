@@ -70,7 +70,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAdapter = new NewsAdapter(getActivity().getApplicationContext());
+        mAdapter = new NewsAdapter(getActivity().getApplicationContext(),mType);
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

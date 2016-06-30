@@ -8,16 +8,21 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Toast;
 
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.mvp.MVPView;
 import com.bean.simplenews.util.LogUtils;
 
 import java.lang.reflect.Method;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
 
     private P Presenter;
+    private boolean isExit=false;
+    private boolean isDoubleToExit=false;
 
     @Override
     protected void onDestroy() {
@@ -26,6 +31,28 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
             Presenter=null;
         }
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!isDoubleToExit){
+            super.onBackPressed();
+        }else if (!isExit) {
+            isExit=true;
+            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    isExit = false;
+                } }, 2000);
+        } else {
+            finish();
+            //System.exit(0);
+        }
+    }
+
+    protected void setDoubleToExit(boolean bool){
+        isDoubleToExit=bool;
     }
 
     // this method must be called in every activity

@@ -41,6 +41,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
         ButterKnife.bind(this);
         initPresenter(new MainPresenter(this));
         initView();
+        setDoubleToExit(true);
         switch2News();  // 初始页面
     }
 

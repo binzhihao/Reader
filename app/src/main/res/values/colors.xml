@@ -12,5 +12,5 @@
     <color name="divider">#FAFAFA</color>
     <color name="background">#FFFFFF</color>
 
-    <color name="colorDayWhite">@color/colorWhite</color>
+    <color name="colorDayWhite">#fafafa</color>
 </resources>

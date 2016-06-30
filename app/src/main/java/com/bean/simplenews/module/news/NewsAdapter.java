@@ -15,16 +15,20 @@ import com.bean.simplenews.util.ImageLoaderUtils;
 import java.util.List;
 
 public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final int TYPE_ITEM = 0;
-    private static final int TYPE_FOOTER = 1;
+
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+    private static final int TYPE_FOOTER = 2;
 
     private List<NewsBean> mData;
+    private int mType;
     private boolean mShowFooter = true;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
-    public NewsAdapter(Context context) {
+    public NewsAdapter(Context context,int type) {
         this.mContext = context;
+        mType = type;
     }
 
     @Override
@@ -34,18 +38,23 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
         if (position + 1 == getItemCount()) {
             return TYPE_FOOTER;
-        } else {
+        } else if(position == 0){
+            return TYPE_HEADER;
+        } else{
             return TYPE_ITEM;
         }
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_news, parent, false);
+        if(viewType == TYPE_HEADER){
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_header,parent,false);
+            return new HeaderViewHolder(view);
+        }else if(viewType == TYPE_ITEM) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_item, parent, false);
             return new ItemViewHolder(v);
         } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.footer, null);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_footer, null);
             view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             return new FooterViewHolder(view);
         }
@@ -53,8 +62,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if(holder instanceof HeaderViewHolder){
+            ImageLoaderUtils.display(mContext, ((HeaderViewHolder) holder).mImage,"http://binzhihao.github.io/header"+mType+".jpg");
+        }
         if(holder instanceof ItemViewHolder) {
-            NewsBean news = mData.get(position);
+            NewsBean news = mData.get(position-1);
             if(news == null) {
                 return;
             }
@@ -67,7 +79,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        int extra = mShowFooter?1:0;
+        int extra = mShowFooter?2:1;
         if(mData == null) {
             return extra;
         }
@@ -95,6 +107,17 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return this.mShowFooter;
     }
 
+    public class HeaderViewHolder extends RecyclerView.ViewHolder {
+
+        public ImageView mImage;
+
+        public HeaderViewHolder(View view) {
+            super(view);
+            mImage=(ImageView) view.findViewById(R.id.img);
+        }
+
+    }
+
     public class FooterViewHolder extends RecyclerView.ViewHolder {
 
         public FooterViewHolder(View view) {
@@ -120,7 +143,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         @Override
         public void onClick(View view) {
             if(mOnItemClickListener != null) {
-                mOnItemClickListener.onItemClick(view, this.getPosition());
+                mOnItemClickListener.onItemClick(view, this.getPosition()-1);
             }
         }
     }

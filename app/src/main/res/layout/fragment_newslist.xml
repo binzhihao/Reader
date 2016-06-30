@@ -10,10 +10,7 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/card_margin"
         android:scrollbars="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 </android.support.v4.widget.SwipeRefreshLayout>
