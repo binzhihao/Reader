@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
+import com.bean.simplenews.R;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.mvp.MVPView;
 import com.bean.simplenews.util.LogUtils;
@@ -39,7 +40,7 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
             super.onBackPressed();
         }else if (!isExit) {
             isExit=true;
-            Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getResources().getString(R.string.exit_message), Toast.LENGTH_SHORT).show();
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
