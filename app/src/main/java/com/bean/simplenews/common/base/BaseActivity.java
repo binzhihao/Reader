@@ -88,6 +88,19 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
         setSupportActionBar(toolbar);
     }
 
+    protected void initToolbar(Toolbar toolbar,boolean upAsHome){
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar()!=null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(upAsHome);
+        }
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+    }
+
     protected void initToolbar(Toolbar toolbar, DrawerLayout drawerLayout, final View main,
                                final NavigationView navigationView, int openStrRes, int closeStrRes){
         initToolbar(toolbar);

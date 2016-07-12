@@ -1,14 +1,9 @@
 package com.bean.simplenews.module.news.model;
 
 import com.bean.simplenews.bean.NewsBean;
-import com.bean.simplenews.util.LogUtils;
 
-import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;

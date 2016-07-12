@@ -3,6 +3,7 @@
     <string name="action_settings">应用设置</string>
     <string name="action_search">搜索</string>
     <string name="action_mode">夜间模式</string>
+    <string name="action_text">字体大小</string>
     <string name="navigation_news">新闻</string>
     <string name="navigation_images">美图</string>
     <string name="navigation_video">视频</string>
