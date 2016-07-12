@@ -22,11 +22,11 @@ public class BaseFragment<P extends BasePresenter> extends Fragment{
     }
 
     @Override
-    public void onDestroyView() {
+    public void onDestroy() {
         if(Presenter!=null){
             Presenter.onDestroy();
             Presenter=null;
         }
-        super.onDestroyView();
+        super.onDestroy();
     }
 }

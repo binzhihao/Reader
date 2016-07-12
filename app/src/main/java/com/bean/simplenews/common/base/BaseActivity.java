@@ -14,6 +14,7 @@ import com.bean.simplenews.R;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.mvp.MVPView;
 import com.bean.simplenews.util.LogUtils;
+import com.bean.simplenews.util.ToastUtils;
 
 import java.lang.reflect.Method;
 import java.util.Timer;
@@ -40,7 +41,7 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
             super.onBackPressed();
         }else if (!isExit) {
             isExit=true;
-            Toast.makeText(this, getResources().getString(R.string.exit_message), Toast.LENGTH_SHORT).show();
+            ToastUtils.makeToast(this,getString(R.string.exit_message));
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -48,7 +49,7 @@ public class BaseActivity<P extends BasePresenter> extends AppCompatActivity{
                 } }, 2000);
         } else {
             finish();
-            //System.exit(0);
+            System.exit(0);
         }
     }
 

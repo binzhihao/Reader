@@ -1,43 +1,71 @@
 package com.bean.simplenews.module.news.presenter;
 
-import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.api.Urls;
-import com.bean.simplenews.common.base.BasePresenter;
+import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.common.Constants;
-import com.bean.simplenews.module.news.model.NewsModelBiz;
-import com.bean.simplenews.module.news.model.NewsModel;
+import com.bean.simplenews.common.base.BasePresenter;
+import com.bean.simplenews.module.news.model.NewsListHelper;
 import com.bean.simplenews.module.news.view.NewsListView;
+import com.bean.simplenews.util.LogUtils;
 
 import java.util.List;
 
-public class NewsListPresenter extends BasePresenter<NewsListView> implements NewsListPresenterBiz, NewsModel.OnLoadNewsListListener {
+public class NewsListPresenter extends BasePresenter<NewsListView> implements NewsListPresenterBiz, NewsListHelper.OnLoadNewsListListener {
 
-    private NewsModelBiz mNewsModel;
+    private int mType;
+    private String mCategory,mId;
 
-    public NewsListPresenter(NewsListView newsListView) {
+    public NewsListPresenter(NewsListView newsListView,int type) {
         onInitial(newsListView);
+        mType=type;
+        switch (mType){
+            case Constants.NEWS_TYPE_TOP:
+                mCategory=Urls.CATEGORY_TOP;
+                mId=Urls.TOP_ID;
+                break;
+            case Constants.NEWS_TYPE_NBA:
+                mCategory=Urls.CATEGORY_COMMON;
+                mId=Urls.NBA_ID;
+                break;
+            case Constants.NEWS_TYPE_CARS:
+                mCategory=Urls.CATEGORY_COMMON;
+                mId=Urls.CAR_ID;
+                break;
+            case Constants.NEWS_TYPE_JOKES:
+                mCategory=Urls.CATEGORY_COMMON;
+                mId=Urls.JOKE_ID;
+                break;
+            default:
+                mCategory=Urls.CATEGORY_TOP;
+                mId=Urls.TOP_ID;
+        }
     }
 
     @Override
     public void onInitial(NewsListView view) {
         super.onInitial(view);
-        mNewsModel = new NewsModel();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mNewsModel = null;
     }
 
     @Override
-    public void loadNews(int type, int pageIndex) {
-        String url = getUrl(type, pageIndex);
-        //只有第一页的或者刷新的时候才显示刷新进度条
-        if(pageIndex == 0) {
-            obtainView().showProgress();
+    public void loadNews(int pageIndex) {
+        //检查是否发起新的申请
+        if(pageIndex == 0) {  //首次加载或手动刷新无条件加载
+            obtainView().showProgress();  //显示刷新进度条
+            cancelAll();
+            NewsListHelper.getInstance().loadNews(mCategory,mId,pageIndex,this);
+        }else{
+            if(NewsListHelper.getInstance().isCallExist(mId+pageIndex)){
+                LogUtils.e("fuck","http call is already exist");
+                return;
+            }
+            obtainView().showFooterProgress();
+            NewsListHelper.getInstance().loadNews(mCategory,mId,pageIndex,this);
         }
-        mNewsModel.loadNews(url, type, this);
     }
 
     @Override
@@ -50,40 +78,20 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements Ne
     }
 
     @Override
-    public void onFailure(String msg, Exception e) {
+    public void onFailure(Throwable t) {
         if(isViewAttached()) {
             obtainView().hideProgress();
             obtainView().showLoadFailure();
         }
     }
 
-    /**
-     * 根据类别和页面索引创建url
-     * @param type
-     * @param pageIndex
-     * @return
-     */
-    private String getUrl(int type, int pageIndex) {
-        StringBuffer sb = new StringBuffer();
-        switch (type) {
-            case Constants.NEWS_TYPE_TOP:
-                sb.append(Urls.TOP_URL).append(Urls.TOP_ID);
-                break;
-            case Constants.NEWS_TYPE_NBA:
-                sb.append(Urls.COMMON_URL).append(Urls.NBA_ID);
-                break;
-            case Constants.NEWS_TYPE_CARS:
-                sb.append(Urls.COMMON_URL).append(Urls.CAR_ID);
-                break;
-            case Constants.NEWS_TYPE_JOKES:
-                sb.append(Urls.COMMON_URL).append(Urls.JOKE_ID);
-                break;
-            default:
-                sb.append(Urls.TOP_URL).append(Urls.TOP_ID);
-                break;
-        }
-        sb.append("/").append(pageIndex).append(Urls.END_URL);
-        return sb.toString();
+    //清除某一个请求
+    public void cancel(int pageIndex){
+        NewsListHelper.getInstance().cancel(mId+pageIndex);
     }
 
+    //清除某一个类别的所有请求
+    public void cancelAll(){
+        NewsListHelper.getInstance().cancelAll(mId);
+    }
 }

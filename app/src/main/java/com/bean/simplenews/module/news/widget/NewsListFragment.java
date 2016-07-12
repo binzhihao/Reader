@@ -21,6 +21,8 @@ import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.module.news.NewsAdapter;
 import com.bean.simplenews.module.news.presenter.NewsListPresenter;
 import com.bean.simplenews.module.news.view.NewsListView;
+import com.bean.simplenews.util.LogUtils;
+import com.bean.simplenews.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +55,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mType = getArguments().getInt(Constants.TYPE);
+        initPresenter(new NewsListPresenter(this,mType));
     }
 
     @Nullable
@@ -60,7 +63,6 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_newslist, null);
-        initPresenter(new NewsListPresenter(this));
         unbinder=ButterKnife.bind(this, view);
 
         mSwipeRefreshWidget.setColorSchemeResources(R.color.colorPrimary, R.color.colorPrimary_dark, R.color.colorAccent);
@@ -95,9 +97,9 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.getItemCount() && mAdapter.isShowFooter()) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem+1>=mAdapter.getItemCount()) {
                     /* 加载更多 */
-                    obtainPresenter().loadNews(mType, mPageIndex + Urls.PAZE_SIZE);
+                    obtainPresenter().loadNews(mPageIndex + Urls.PAGE_SIZE);
                 }
             }
         });
@@ -113,21 +115,17 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
 
     @Override
     public void addNews(List<NewsBean> newsList) {
-        mAdapter.isShowFooter(true);
-        if (mData == null) {
-            mData = new ArrayList<>();
+        //没有更多数据了
+        if(newsList == null || newsList.size() == 0) {
+            LogUtils.e("fuck","return newslist is null or size is 0");
+            return;
+        }
+        if(mData==null){
+            mData=new ArrayList<>();
         }
         mData.addAll(newsList);
-        if (mPageIndex == 0) {
-            mAdapter.setDate(mData);
-        } else {
-            //如果没有更多数据了,则隐藏footer布局
-            if (newsList == null || newsList.size() == 0) {
-                mAdapter.isShowFooter(false);
-            }
-            mAdapter.notifyDataSetChanged();
-        }
-        mPageIndex += Urls.PAZE_SIZE;
+        mAdapter.setDate(mData);
+        mPageIndex += Urls.PAGE_SIZE;
     }
 
     @Override
@@ -141,29 +139,41 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     }
 
     @Override
-    public void showLoadFailure() {
-        if (mPageIndex == 0) {
-            mAdapter.isShowFooter(false);
+    public void showFooterProgress(){
+        if(!mAdapter.isShowFooter()) {
+            mAdapter.setShowFooter(true);
+            mAdapter.notifyDataSetChanged();  //使footer的更改生效
+        }
+    }
+
+    @Override
+    public void hideFooterProgress(){
+        if(mAdapter.isShowFooter()) {
+            mAdapter.setShowFooter(false);
             mAdapter.notifyDataSetChanged();
         }
-        View view = getActivity() == null ? mRecyclerView.getRootView() : getActivity().findViewById(R.id.drawer_layout);
-        Snackbar.make(view, getString(R.string.load_fail), Snackbar.LENGTH_SHORT).show();
-        //mSwipeRefreshWidget.setBackgroundResource(R.drawable.base_empty_view);
+    }
+
+    @Override
+    public void showLoadFailure() {
+        LogUtils.e("fuck","failure");
+        hideFooterProgress();
+        ToastUtils.makeToast(getActivity(),getString(R.string.load_fail));
     }
 
     @Override
     public void showLoadSuccess() {
-        //mSwipeRefreshWidget.setBackgroundColor(getResources().getColor(R.color.divider));
+        LogUtils.e("fuck","success");
+        hideFooterProgress();
     }
 
     @Override
     /* implement the interface from SwipeRefreshLayout */
     public void onRefresh() {
-        mPageIndex = 0;
         if (mData != null) {
             mData.clear();
         }
-        obtainPresenter().loadNews(mType, mPageIndex);
+        obtainPresenter().loadNews(mPageIndex);
     }
 
 }

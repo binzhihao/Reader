@@ -30,7 +30,7 @@ public class NewsJsonUtils {
      * @return
      */
     public static List<NewsBean> readJsonNewsBeans(String res, String value) {
-        List<NewsBean> beans = new ArrayList<NewsBean>();
+        List<NewsBean> beans = new ArrayList<>();
         try {
             JsonParser parser = new JsonParser();
             JsonObject jsonObj = parser.parse(res).getAsJsonObject();

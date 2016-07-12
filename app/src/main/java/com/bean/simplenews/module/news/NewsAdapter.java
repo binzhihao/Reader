@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bean.simplenews.R;
 import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.util.ImageLoaderUtils;
+import com.bean.simplenews.util.LogUtils;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<NewsBean> mData;
     private int mType;
-    private boolean mShowFooter = true;
+    private boolean mShowFooter=true;
     private Context mContext;
     private OnItemClickListener mOnItemClickListener;
 
@@ -33,14 +35,12 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        if(!mShowFooter) {
-            return TYPE_ITEM;
-        }
-        if (position + 1 == getItemCount()) {
-            return TYPE_FOOTER;
-        } else if(position == 0){
+        //F.e("fuck",""+position);
+        if(position==0){
             return TYPE_HEADER;
-        } else{
+        }else if (position+1==getItemCount()) {
+            return TYPE_FOOTER;
+        }else{
             return TYPE_ITEM;
         }
     }
@@ -63,7 +63,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof HeaderViewHolder){
-            ImageLoaderUtils.display(mContext, ((HeaderViewHolder) holder).mImage,"http://binzhihao.github.io/header"+mType+".jpg");
+            ImageLoaderUtils.display(mContext, ((HeaderViewHolder) holder).mImage, "http://binzhihao.github.io/header"+mType+".jpg");
         }
         if(holder instanceof ItemViewHolder) {
             NewsBean news = mData.get(position-1);
@@ -72,14 +72,20 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getTitle());
             ((ItemViewHolder) holder).mDesc.setText(news.getDigest());
-            /* 图片加载 */
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImgsrc());
+        }
+        if(holder instanceof FooterViewHolder){
+            if(mShowFooter){
+                ((FooterViewHolder)holder).mTextView.setText(mContext.getString(R.string.loading));
+            }else{
+                ((FooterViewHolder)holder).mTextView.setText(" ");
+            }
         }
     }
 
     @Override
     public int getItemCount() {
-        int extra = mShowFooter?2:1;
+        int extra = 2;  //header and footer
         if(mData == null) {
             return extra;
         }
@@ -99,7 +105,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return mData == null ? null : mData.get(position);
     }
 
-    public void isShowFooter(boolean showFooter) {
+    public void setShowFooter(boolean showFooter) {
         this.mShowFooter = showFooter;
     }
 
@@ -108,30 +114,25 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
-
         public ImageView mImage;
-
         public HeaderViewHolder(View view) {
             super(view);
             mImage=(ImageView) view.findViewById(R.id.img);
         }
-
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
-
+        public TextView mTextView;
         public FooterViewHolder(View view) {
             super(view);
+            mTextView=(TextView)view.findViewById(R.id.more_data_msg);
         }
-
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         public TextView mTitle;
         public TextView mDesc;
         public ImageView mNewsImg;
-
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
@@ -139,7 +140,6 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
         }
-
         @Override
         public void onClick(View view) {
             if(mOnItemClickListener != null) {

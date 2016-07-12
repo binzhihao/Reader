@@ -13,7 +13,12 @@ public interface NewsListView extends MVPView{
 
     void hideProgress();
 
+    void showFooterProgress();
+
+    void hideFooterProgress();
+
     void showLoadFailure();
 
     void showLoadSuccess();
+
 }

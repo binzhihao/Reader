@@ -37,9 +37,9 @@ public class NewsFragment extends Fragment {
         adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_TOP), getString(R.string.top));
         adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_NBA), getString(R.string.nba));
         adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_CARS), getString(R.string.cars));
-        adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_JOKES), getString(R.string.jokes));
+        //adapter.addFragment(NewsListFragment.newInstance(Constants.NEWS_TYPE_JOKES), getString(R.string.jokes));
         mViewPager.setAdapter(adapter);
-        mViewPager.setOffscreenPageLimit(3);
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);  // 将两者关联起来
 
         return view;
