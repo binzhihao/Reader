@@ -1,6 +1,7 @@
 package com.bean.simplenews.module.main.widget;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;

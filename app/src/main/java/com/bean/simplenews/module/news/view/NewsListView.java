@@ -9,10 +9,6 @@ public interface NewsListView extends MVPView{
 
     void addNews(List<NewsBean> newsList);
 
-    void showProgress();
-
-    void hideProgress();
-
     void showFooterProgress();
 
     void hideFooterProgress();

@@ -2,6 +2,7 @@ package com.bean.simplenews.module.news.widget;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -42,6 +43,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     private NewsAdapter mAdapter;
     private List<NewsBean> mData;
     private int mType = 0, mPageIndex = 0;
+    private boolean mFirstTime = true;
 
     public static NewsListFragment newInstance(int type) {
         Bundle args = new Bundle();
@@ -103,8 +105,23 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
                 }
             }
         });
-        onRefresh();    // 立即刷新一次
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if(mFirstTime){
+            LogUtils.e("fuck","load in start");
+            mFirstTime=false;
+            //主线程运行，延迟加载，提高切换性能
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    obtainPresenter().loadNews(mPageIndex);
+                }
+            },1000);
+        }
     }
 
     @Override
@@ -117,7 +134,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public void addNews(List<NewsBean> newsList) {
         //没有更多数据了
         if(newsList == null || newsList.size() == 0) {
-            LogUtils.e("fuck","return newslist is null or size is 0");
+            LogUtils.e("fuck","return news list is null or size is 0");
             return;
         }
         if(mData==null){
@@ -126,16 +143,6 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         mData.addAll(newsList);
         mAdapter.setDate(mData);
         mPageIndex += Urls.PAGE_SIZE;
-    }
-
-    @Override
-    public void showProgress() {
-        mSwipeRefreshWidget.setRefreshing(true);
-    }
-
-    @Override
-    public void hideProgress() {
-        mSwipeRefreshWidget.setRefreshing(false);
     }
 
     @Override
@@ -158,6 +165,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public void showLoadFailure() {
         LogUtils.e("fuck","failure");
         hideFooterProgress();
+        mSwipeRefreshWidget.setRefreshing(false);
         ToastUtils.makeToast(getActivity(),getString(R.string.load_fail));
     }
 
@@ -165,6 +173,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public void showLoadSuccess() {
         LogUtils.e("fuck","success");
         hideFooterProgress();
+        mSwipeRefreshWidget.setRefreshing(false);
     }
 
     @Override
@@ -173,6 +182,7 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         if (mData != null) {
             mData.clear();
         }
+        mPageIndex=0;
         obtainPresenter().loadNews(mPageIndex);
     }
 

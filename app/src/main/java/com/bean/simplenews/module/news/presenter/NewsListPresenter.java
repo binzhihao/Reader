@@ -53,9 +53,7 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements Ne
 
     @Override
     public void loadNews(int pageIndex) {
-        //检查是否发起新的申请
         if(pageIndex == 0) {  //首次加载或手动刷新无条件加载
-            obtainView().showProgress();  //显示刷新进度条
             cancelAll();
             NewsListHelper.getInstance().loadNews(mCategory,mId,pageIndex,this);
         }else{
@@ -71,7 +69,6 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements Ne
     @Override
     public void onSuccess(List<NewsBean> list) {
         if(isViewAttached()) {
-            obtainView().hideProgress();
             obtainView().addNews(list);
             obtainView().showLoadSuccess();
         }
@@ -80,7 +77,6 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements Ne
     @Override
     public void onFailure(Throwable t) {
         if(isViewAttached()) {
-            obtainView().hideProgress();
             obtainView().showLoadFailure();
         }
     }

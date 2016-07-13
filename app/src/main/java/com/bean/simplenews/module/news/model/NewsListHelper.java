@@ -1,6 +1,7 @@
 package com.bean.simplenews.module.news.model;
 
 import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.converter.NewsListConverterFactory;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -42,6 +43,10 @@ public class NewsListHelper {
             @Override
             public void onResponse(Call<List<NewsBean>> call, Response<List<NewsBean>> response) {
                 callMap.remove(id+pageIndex);
+                //缓存首页数据节省流量balabala
+                if(pageIndex==0){
+                    //CacheUtils.get(BaseApp.getGlobalContext());
+                }
                 if(listener!=null) listener.onSuccess(response.body());
             }
             @Override

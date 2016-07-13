@@ -1,4 +1,4 @@
-package com.bean.simplenews.module.news.model;
+package com.bean.simplenews.module.news.model.converter;
 
 import com.bean.simplenews.bean.NewsBean;
 import com.bean.simplenews.util.LogUtils;

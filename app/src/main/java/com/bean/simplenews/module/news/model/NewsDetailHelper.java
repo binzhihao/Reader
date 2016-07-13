@@ -1,9 +1,9 @@
 package com.bean.simplenews.module.news.model;
 
 import com.bean.simplenews.bean.NewsDetailBean;
+import com.bean.simplenews.module.news.model.converter.NewsDetailConverterFactory;
 
 import java.util.Hashtable;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

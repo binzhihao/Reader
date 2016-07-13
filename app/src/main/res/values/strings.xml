@@ -18,5 +18,6 @@
     <string name="load_fail">加载数据失败!</string>
     <string name="title_activity_news_detail">新闻详情</string>
     <string name="exit_message">再按一次退出应用</string>
+    <string name="title_activity_splash">SplashActivity</string>
 
 </resources>

@@ -1,11 +1,9 @@
-package com.bean.simplenews.module.news.model;
+package com.bean.simplenews.module.news.model.converter;
 
 import com.bean.simplenews.bean.NewsDetailBean;
-import com.google.gson.Gson;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Converter;
