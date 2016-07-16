@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.model;
 
-import com.bean.simplenews.bean.NewsDetailBean;
+import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

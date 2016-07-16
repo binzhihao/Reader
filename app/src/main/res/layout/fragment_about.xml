@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="@dimen/activity_vertical_margin">
 
     <TextView
         android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="^_^低仿网易新闻4.0版本客户端^_^" />
+        android:text="@string/about_text" />
 
 </LinearLayout>

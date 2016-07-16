@@ -1,9 +1,7 @@
 package com.bean.simplenews.module.news.model.converter;
 
-import com.bean.simplenews.bean.NewsDetailBean;
+import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 import com.bean.simplenews.util.JsonUtils;
-import com.bean.simplenews.util.LogUtils;
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

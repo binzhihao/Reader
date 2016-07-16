@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.presenter;
 
-import com.bean.simplenews.bean.NewsDetailBean;
+import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 import com.bean.simplenews.common.base.BasePresenter;
 import com.bean.simplenews.module.news.model.NewsDetailHelper;
 import com.bean.simplenews.module.news.view.NewsDetailView;

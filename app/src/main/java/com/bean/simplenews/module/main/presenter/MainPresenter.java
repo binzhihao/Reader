@@ -19,6 +19,12 @@ public class MainPresenter extends BasePresenter<MainView> implements IMainPrese
             case R.id.navigation_item_about:
                 obtainView().switch2About();
                 break;
+            case R.id.navigation_item_image:
+                obtainView().switch2Pic();
+                break;
+            case R.id.navigation_item_video:
+                obtainView().switch2video();
+                break;
             default:
                 obtainView().switch2News();
                 break;

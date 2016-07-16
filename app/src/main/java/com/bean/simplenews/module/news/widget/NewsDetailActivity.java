@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bean.simplenews.R;
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.base.BaseActivity;
 import com.bean.simplenews.module.news.presenter.NewsDetailPresenter;

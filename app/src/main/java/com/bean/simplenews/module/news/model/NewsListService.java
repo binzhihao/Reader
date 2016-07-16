@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.model;
 
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 
 import java.util.List;
 

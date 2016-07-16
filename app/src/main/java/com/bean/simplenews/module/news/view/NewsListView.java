@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.view;
 
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.common.mvp.MVPView;
 
 import java.util.List;

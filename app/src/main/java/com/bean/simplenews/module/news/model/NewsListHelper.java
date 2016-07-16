@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.model;
 
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.module.news.model.converter.NewsListConverterFactory;
 
 import java.util.Hashtable;
@@ -37,21 +37,19 @@ public class NewsListHelper {
     public void loadNews(final String category, final String id, final int pageIndex, final OnLoadNewsListListener listener){
         Call<List<NewsBean>> newsListCall=service.loadNews(category,id,pageIndex);
         callMap.put(id+pageIndex,newsListCall);
-        //LogUtils.e("fuck",""+callMap.size());
         //异步回调
         newsListCall.enqueue(new Callback<List<NewsBean>>() {
             @Override
             public void onResponse(Call<List<NewsBean>> call, Response<List<NewsBean>> response) {
                 callMap.remove(id+pageIndex);
-                //缓存首页数据节省流量balabala
                 if(pageIndex==0){
+                    //TODO 缓存首页数据节省流量
                     //CacheUtils.get(BaseApp.getGlobalContext());
                 }
                 if(listener!=null) listener.onSuccess(response.body());
             }
             @Override
             public void onFailure(Call<List<NewsBean>> call, Throwable t) {
-                //LogUtils.e("fuck","fail "+t.getMessage());
                 callMap.remove(id+pageIndex);
                 if(listener!=null) listener.onFailure(t);
             }
@@ -66,7 +64,7 @@ public class NewsListHelper {
     }
 
     public void cancelAll(String type){
-        //TODO
+        //TODO cancel all the http request of the same type
     }
 
     public boolean isCallExist(String key){

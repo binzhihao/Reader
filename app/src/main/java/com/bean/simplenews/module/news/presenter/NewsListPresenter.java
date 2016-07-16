@@ -1,7 +1,7 @@
 package com.bean.simplenews.module.news.presenter;
 
 import com.bean.simplenews.api.Urls;
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.base.BasePresenter;
 import com.bean.simplenews.module.news.model.NewsListHelper;

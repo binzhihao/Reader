@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -16,7 +15,7 @@ import android.view.ViewGroup;
 
 import com.bean.simplenews.R;
 import com.bean.simplenews.api.Urls;
-import com.bean.simplenews.bean.NewsBean;
+import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.common.base.BaseFragment;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.module.news.NewsAdapter;

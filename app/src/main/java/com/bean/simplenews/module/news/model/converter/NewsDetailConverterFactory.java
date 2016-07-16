@@ -1,6 +1,6 @@
 package com.bean.simplenews.module.news.model.converter;
 
-import com.bean.simplenews.bean.NewsDetailBean;
+import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;

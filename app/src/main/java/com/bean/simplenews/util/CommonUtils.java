@@ -4,7 +4,7 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
-public class ToolsUtil {
+public class CommonUtils {
 
 	public static final int getHeightInPx(Context context) {
 		final int height = context.getResources().getDisplayMetrics().heightPixels;
@@ -50,9 +50,6 @@ public class ToolsUtil {
 	
 	/**
 	 * 获得状态栏的高度
-	 * 
-	 * @param context
-	 * @return
 	 */
 	public static int getStatusHeight(Context context) {
 
@@ -71,8 +68,6 @@ public class ToolsUtil {
 
 	/**
 	 * 判断网络是否可用
-	 * @param context
-	 * @return
 	 */
 	public static boolean isNetworkAvailable(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context
