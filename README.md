@@ -2,12 +2,10 @@
 An android news reader, which is an example for the framework with MVP + Retrofit + RxBus + ButterKnife, with material design. 
 
 # Screenshots
-![0](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img0.png)
-![1](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img1.png)
-![2](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img2.png)
-
-
-![3](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img3.png)
+![0](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img0-0.png)
+![1](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img1-1.png)
+![2](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img2-2.png)
+![3](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img3-3.png)
 
 # Todo
 
