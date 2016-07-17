@@ -1,7 +1,6 @@
 package com.bean.simplenews.module.main.widget;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +17,7 @@ import com.bean.simplenews.module.about.AboutFragment;
 import com.bean.simplenews.module.main.presenter.MainPresenter;
 import com.bean.simplenews.module.main.view.MainView;
 import com.bean.simplenews.module.news.widget.NewsFragment;
-import com.bean.simplenews.module.picture.PictureFragment;
+import com.bean.simplenews.module.image.ImageFragment;
 import com.bean.simplenews.module.video.VideoFragment;
 
 import butterknife.BindView;
@@ -94,7 +93,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainVie
 
     @Override
     public void switch2Pic() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new PictureFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ImageFragment()).commit();
         mToolbar.setTitle(R.string.navigation_images);
     }
 

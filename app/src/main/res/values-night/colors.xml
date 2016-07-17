@@ -4,5 +4,6 @@
     <color name="colorPrimary_dark">#b71c1c</color>
     <color name="colorAccent">#d32f2f</color>
 
+    <color name="colorDayLight">@color/colorDark</color>
     <color name="colorDayWhite">@color/colorDark</color>
 </resources>

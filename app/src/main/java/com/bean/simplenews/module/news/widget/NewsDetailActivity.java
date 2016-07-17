@@ -9,12 +9,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bean.simplenews.R;
+import com.bean.simplenews.common.base.BaseApp;
 import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.common.Constants;
 import com.bean.simplenews.common.base.BaseActivity;
 import com.bean.simplenews.module.news.presenter.NewsDetailPresenter;
 import com.bean.simplenews.module.news.view.NewsDetailView;
 import com.bean.simplenews.util.ImageLoaderUtils;
+import com.bean.simplenews.util.LogUtils;
 
 import org.sufficientlysecure.htmltextview.HtmlTextView;
 
@@ -52,6 +54,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter> implem
 
     @Override
     public void showNewsDetailContent(String newsDetailContent) {
+        mNewsContent.setTypeface(BaseApp.getTypeface());
         mNewsContent.setHtmlFromString(newsDetailContent, new HtmlTextView.LocalImageGetter());
     }
 
@@ -70,6 +73,7 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter> implem
         setTitle("");
         NewsBean newsBean = (NewsBean) getIntent().getSerializableExtra(Constants.NEWS);
         ImageLoaderUtils.display(getApplicationContext(), mImage, newsBean.getImgsrc());
+        LogUtils.e("fuck",newsBean.getDocid());
         obtainPresenter().loadNewsDetail(newsBean.getDocid());
     }
 }

@@ -17,18 +17,20 @@ import retrofit2.Converter;
 
 final class NewsListResponseBodyConverter<T> implements Converter<ResponseBody,T> {
 
-    //有时候会解析没有完成就返回，需要改进，尽量提高解释效率
+    private JsonParser parser;
+
+    NewsListResponseBodyConverter(JsonParser jsonParser){
+        parser=jsonParser;
+    }
+
     @Override public T convert(ResponseBody body) throws IOException {
 
         List<NewsBean> beans = new ArrayList<>();
 
         String value = body.string();
-        //LogUtils.e("fuck",value);
         int indexA = value.indexOf('"'); int indexB = value.indexOf('"',5);
         String typeId = value.substring(indexA+1,indexB);
-        LogUtils.e("fuck",typeId);
 
-        JsonParser parser = new JsonParser();
         JsonObject jsonObj = parser.parse(value).getAsJsonObject();
         JsonElement jsonElement = jsonObj.get(typeId);
         if(jsonElement == null) {
@@ -36,17 +38,16 @@ final class NewsListResponseBodyConverter<T> implements Converter<ResponseBody,T
             return null;
         }
         JsonArray jsonArray = jsonElement.getAsJsonArray();
-        //LogUtils.e("fuck",""+jsonArray.size());
-        for (int i = 1; i < jsonArray.size(); i++) {
-            JsonObject jo = jsonArray.get(i).getAsJsonObject();
-            if (jo.has("skipType") && "special".equals(jo.get("skipType").getAsString())) {
-                continue;
-            }
-            if (jo.has("TAGS") && !jo.has("TAG")) {
-                continue;
-            }
-
-            if (!jo.has("imgextra")) {
+        int arraySize = jsonArray.size();
+        if (arraySize > 1){
+            for (int i =0; i < arraySize; i++) {
+                JsonObject jo = jsonArray.get(i).getAsJsonObject();
+                if (jo.has("skipType") && "special".equals(jo.get("skipType").getAsString())) {  // 除去专题
+                    continue;
+                }
+                if (jo.has("imgextra") && !jo.has("hasCover")){  // 除去图集，但保留页头
+                    continue;
+                }
                 NewsBean news = JsonUtils.deserialize(jo, NewsBean.class);
                 beans.add(news);
             }

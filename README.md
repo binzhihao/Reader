@@ -5,9 +5,20 @@ An android news reader, which is an example for the framework with MVP + Retrofi
 ![0](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img0.png)
 ![1](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img1.png)
 ![2](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img2.png)
+
+
 ![3](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img3.png)
 
+# Todo
+
+* cache
+* improve performance ( more rx and less layout ... )
+* justify align text
+* get replies of each news
+* login and can reply
+
 # Feedback
+
 binzhihao@outlook.com
 
 # License

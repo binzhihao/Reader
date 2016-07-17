@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bean.simplenews.R;
+import com.bean.simplenews.common.base.BaseApp;
 import com.bean.simplenews.module.news.model.bean.NewsBean;
 import com.bean.simplenews.util.ImageLoaderUtils;
 
@@ -33,11 +34,10 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemViewType(int position) {
-        //F.e("fuck",""+position);
-        if(position==0){
-            return TYPE_HEADER;
-        }else if (position+1==getItemCount()) {
+        if(position+1==getItemCount()){  // 如果只有一项先判断为footer
             return TYPE_FOOTER;
+        }else if (position==0) {
+            return TYPE_HEADER;
         }else{
             return TYPE_ITEM;
         }
@@ -61,15 +61,21 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof HeaderViewHolder){
-            ImageLoaderUtils.display(mContext, ((HeaderViewHolder) holder).mImage, "http://binzhihao.github.io/header"+mType+".jpg");
+            NewsBean news = mData.get(position);
+            if(news ==null){
+                return;
+            }
+            ImageLoaderUtils.display(mContext, ((HeaderViewHolder) holder).mImage, news.getImgsrc());
+            ((HeaderViewHolder) holder).mTitle.setText(news.getTitle());
         }
         if(holder instanceof ItemViewHolder) {
-            NewsBean news = mData.get(position-1);
+            NewsBean news = mData.get(position);
             if(news == null) {
                 return;
             }
             ((ItemViewHolder) holder).mTitle.setText(news.getTitle());
-            ((ItemViewHolder) holder).mDesc.setText(news.getDigest());
+            ((ItemViewHolder) holder).mTime.setText(news.getPtime());
+            ((ItemViewHolder) holder).mCount.setText(news.getReplyCount());
             ImageLoaderUtils.display(mContext, ((ItemViewHolder) holder).mNewsImg, news.getImgsrc());
         }
         if(holder instanceof FooterViewHolder){
@@ -83,7 +89,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        int extra = 2;  //header and footer
+        int extra = 1;  //footer
         if(mData == null) {
             return extra;
         }
@@ -100,7 +106,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public NewsBean getItem(int position) {
-        return mData == null ? null : mData.get(position);
+        return mData == null ? null : mData.get(position+1);
     }
 
     public void setShowFooter(boolean showFooter) {
@@ -113,9 +119,11 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class HeaderViewHolder extends RecyclerView.ViewHolder {
         public ImageView mImage;
+        public TextView mTitle;
         public HeaderViewHolder(View view) {
             super(view);
             mImage=(ImageView) view.findViewById(R.id.img);
+            mTitle=(TextView) view.findViewById(R.id.dec);
         }
     }
 
@@ -129,12 +137,15 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView mTitle;
-        public TextView mDesc;
+        public TextView mTime;
+        public TextView mCount;
         public ImageView mNewsImg;
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
-            mDesc = (TextView) v.findViewById(R.id.tvDesc);
+            mTitle.setTypeface(BaseApp.getTypeface());
+            mTime = (TextView) v.findViewById(R.id.tvTime);
+            mCount = (TextView) v.findViewById(R.id.tvCount);
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);
             v.setOnClickListener(this);
         }

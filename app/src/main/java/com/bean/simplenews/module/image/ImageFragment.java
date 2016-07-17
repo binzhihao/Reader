@@ -1,4 +1,4 @@
-package com.bean.simplenews.module.picture;
+package com.bean.simplenews.module.image;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.bean.simplenews.R;
 
-public class PictureFragment extends Fragment {
+public class ImageFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

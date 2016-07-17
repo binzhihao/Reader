@@ -4,6 +4,7 @@
     <string name="action_search">搜索</string>
     <string name="action_mode">夜间模式</string>
     <string name="action_text">字体大小</string>
+    <string name="action_share">分享</string>
     <string name="navigation_news">新闻</string>
     <string name="navigation_images">美图</string>
     <string name="navigation_video">视频</string>
@@ -14,6 +15,7 @@
     <string name="nba">体育</string>
     <string name="cars">汽车</string>
     <string name="jokes">娱乐</string>
+    <string name="reply">跟帖</string>
     <string name="loading">正在加载</string>
     <string name="load_fail">加载数据失败!</string>
     <string name="exit_message">再按一次退出应用</string>

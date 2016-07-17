@@ -1,19 +1,19 @@
 package com.bean.simplenews.common.base;
 
 import android.app.Application;
-import android.content.Context;
+import android.graphics.Typeface;
 
 public class BaseApp extends Application{
 
-    private static Context mContext;
+    private static Typeface typeFace;
 
     @Override
     public void onCreate() {
         super.onCreate();
-        mContext=super.getApplicationContext();
+        typeFace = Typeface.createFromAsset(getAssets(),"fonts/1mRegular.ttf");
     }
 
-    public static Context getGlobalContext(){
-        return mContext;
+    public static Typeface getTypeface(){
+        return typeFace;
     }
 }

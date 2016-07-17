@@ -7,32 +7,20 @@
         <item name="colorPrimaryDark">@color/colorPrimary_dark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
-    <style name="ActivityTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorWhite</item>
-        <item name="colorPrimaryDark">@color/colorPrimary_dark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
-    <style name="ActivityTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="NavigationTextStyle">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="PopupStyle" parent="ThemeOverlay.AppCompat.Light">
         <item name="android:itemTextAppearance">@style/TextStyle</item>
     </style>
-
     <style name="TextStyle">
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/secondary_text</item>
@@ -45,14 +33,14 @@
         <item name="tabSelectedTextColor">@color/colorPrimary</item>
         <item name="tabTextAppearance">@style/TabStyle</item>
     </style>
-
     <style name="TabStyle" parent="TextAppearance.Design.Tab">
         <item name="android:textAllCaps">false</item>
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="HtmlTextStyle">
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">18sp</item>
+    </style>
 
 </resources>
