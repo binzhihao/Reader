@@ -11,9 +11,8 @@ An android news reader, which is an example for the framework with MVP + Retrofi
 
 * cache
 * improve performance ( more rx and less layout ... )
-* justify align text
 * get replies of each news
-* login and can reply
+* login and reply
 
 # Feedback
 

@@ -2,6 +2,7 @@ package com.bean.simplenews.module.news.model;
 
 import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 import com.bean.simplenews.module.news.model.converter.NewsDetailConverterFactory;
+import com.bean.simplenews.util.LogUtils;
 
 import java.util.Hashtable;
 
@@ -36,6 +37,7 @@ public class NewsDetailHelper {
     public void loadNewsDetail(final String id, final OnLoadNewsDetailListener listener){
         Call<NewsDetailBean> NewsDetailCall=service.loadNewsDetail(id);
         callMap.put(id,NewsDetailCall);
+        //LogUtils.e("fuck",id);
         //异步回调
         NewsDetailCall.enqueue(new Callback<NewsDetailBean>() {
             @Override

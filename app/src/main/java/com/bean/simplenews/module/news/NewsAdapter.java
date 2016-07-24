@@ -143,7 +143,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public ItemViewHolder(View v) {
             super(v);
             mTitle = (TextView) v.findViewById(R.id.tvTitle);
-            mTitle.setTypeface(BaseApp.getTypeface());
+            //mTitle.setTypeface(BaseApp.getTypeface());
             mTime = (TextView) v.findViewById(R.id.tvTime);
             mCount = (TextView) v.findViewById(R.id.tvCount);
             mNewsImg = (ImageView) v.findViewById(R.id.ivNews);

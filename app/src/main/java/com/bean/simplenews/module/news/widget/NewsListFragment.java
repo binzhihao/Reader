@@ -77,9 +77,9 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
         mAdapter.setOnItemClickListener(new NewsAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                NewsBean news = mAdapter.getItem(position);
+                String docId = mAdapter.getItem(position).getDocid();
                 Intent intent = new Intent(getActivity(), NewsDetailActivity.class);
-                intent.putExtra(Constants.NEWS, news);
+                intent.putExtra(Constants.NEWS, docId);
                 // android.support.v4.app.ActivityCompat is a helper for accessing features in Activity introduced after API level 4
                 // in a backwards compatible fashion. Here it start a activity with a Bundle.
                 ActivityCompat.startActivity(getActivity(), intent, null);

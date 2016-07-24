@@ -7,7 +7,7 @@ public class NewsDetailBean implements Serializable {
 
     private String title;
     private String body;
-    private List<String> imgList;   //图片列表
+    private List<Image> img;   //图片列表
 
     public String getTitle() {
         return title;
@@ -21,10 +21,28 @@ public class NewsDetailBean implements Serializable {
     public void setBody(String body) {
         this.body = body;
     }
-    public List<String> getImgList() {
-        return imgList;
+    public List<Image> getImg() {
+        return img;
     }
-    public void setImgList(List<String> imgList) {
-        this.imgList = imgList;
+    public void setImg(List<Image> imgList) {
+        this.img = imgList;
+    }
+
+    public class Image {
+        private String ref;
+        private String src;
+
+        public String getRef() {
+            return ref;
+        }
+        public void setRef(String ref) {
+            this.ref = ref;
+        }
+        public String getSrc() {
+            return src;
+        }
+        public void setSrc(String src) {
+            this.src = src;
+        }
     }
 }

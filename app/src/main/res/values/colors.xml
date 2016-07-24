@@ -6,12 +6,9 @@
     <color name="colorDark">#303030</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#212121</color>
-    <color name="primary_text">#212121</color>
+    <color name="primary_text">#424242</color>
     <color name="secondary_text">#727272</color>
-    <color name="icons">#FFFFFF</color>
-    <color name="divider">#FAFAFA</color>
-    <color name="background">#FFFFFF</color>
-
     <color name="colorDayLight">#ffffff</color>
     <color name="colorDayWhite">#fafafa</color>
+    <color name="colorDayGray">#fafafa</color>
 </resources>
