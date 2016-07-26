@@ -27,13 +27,13 @@ public class NewsListPresenter extends BasePresenter<NewsListView> implements Ne
                 mCategory=Urls.CATEGORY_COMMON;
                 mId=Urls.NBA_ID;
                 break;
-            case Constants.NEWS_TYPE_CARS:
+            case Constants.NEWS_TYPE_TEC:
                 mCategory=Urls.CATEGORY_COMMON;
-                mId=Urls.CAR_ID;
+                mId=Urls.TEC_ID;
                 break;
-            case Constants.NEWS_TYPE_JOKES:
+            case Constants.NEWS_TYPE_FIN:
                 mCategory=Urls.CATEGORY_COMMON;
-                mId=Urls.JOKE_ID;
+                mId=Urls.FIN_ID;
                 break;
             default:
                 mCategory=Urls.CATEGORY_TOP;

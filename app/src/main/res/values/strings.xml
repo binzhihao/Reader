@@ -13,13 +13,15 @@
     <string name="drawer_close">Close</string>
     <string name="top">头条</string>
     <string name="nba">体育</string>
+    <string name="tec">科技</string>
+    <string name="fin">财经</string>
     <string name="cars">汽车</string>
     <string name="jokes">娱乐</string>
     <string name="reply">跟帖</string>
     <string name="loading">正在加载</string>
     <string name="load_fail">加载数据失败!</string>
     <string name="exit_message">再按一次退出应用</string>
-    <string name="hello_blank_fragment">^_^ 暂时没有东西呢 ^_^</string>
+    <string name="hello_blank_fragment">^_^ 程序猿罢工啦暂时还木有上线 ^_^</string>
     <string name="about_text">^_^ 低仿网易新闻4.x版本客户端 ^_^</string>
 
 </resources>
