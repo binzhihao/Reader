@@ -8,6 +8,7 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
@@ -26,7 +27,7 @@ import butterknife.ButterKnife;
 public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter> implements NewsDetailView {
 
     @BindView(R.id.progress)
-    ProgressBar mProgressBar;
+    FrameLayout mProgressBar;
     @BindView(R.id.htNewsContent)
     WebView mNewsContent;
     @BindView(R.id.toolbar)
@@ -75,6 +76,11 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter> implem
     }
 
     @Override
+    public void showFailContent() {
+        ToastUtils.makeToast(NewsDetailActivity.this, getString(R.string.load_fail));
+    }
+
+    @Override
     public void showProgress() {
         mProgressBar.setVisibility(View.VISIBLE);
     }
@@ -87,13 +93,6 @@ public class NewsDetailActivity extends BaseActivity<NewsDetailPresenter> implem
     private void initView(){
         initToolbar(mToolbar,true);
         setTitle("");
-        mNewsContent.setWebViewClient(new WebViewClient() {
-            @Override
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                ToastUtils.makeToast(NewsDetailActivity.this,getString(R.string.load_fail));
-                //super.onReceivedError(view, errorCode, description, failingUrl);
-            }
-        });
         mNewsContent.setBackgroundColor(getResources().getColor(R.color.colorDayGray));
         WebSettings webSettings = mNewsContent.getSettings();
         webSettings.setSupportZoom(false);

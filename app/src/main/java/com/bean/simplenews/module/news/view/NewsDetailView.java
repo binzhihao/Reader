@@ -6,6 +6,8 @@ public interface NewsDetailView extends MVPView{
 
     void showNewsDetailContent(String newsDetailContent);
 
+    void showFailContent();
+
     void showProgress();
 
     void hideProgress();

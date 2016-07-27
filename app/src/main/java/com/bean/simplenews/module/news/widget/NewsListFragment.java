@@ -111,7 +111,6 @@ public class NewsListFragment extends BaseFragment<NewsListPresenter> implements
     public void onStart() {
         super.onStart();
         if(mFirstTime){
-            LogUtils.e("fuck","load in start");
             mFirstTime=false;
             //主线程运行，延迟加载，提高切换性能
             new Handler().postDelayed(new Runnable() {

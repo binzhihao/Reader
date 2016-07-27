@@ -1,5 +1,6 @@
 package com.bean.simplenews.module.news.presenter;
 
+import android.os.Handler;
 import android.util.Log;
 
 import com.bean.simplenews.common.Constants;
@@ -7,6 +8,7 @@ import com.bean.simplenews.module.news.model.bean.NewsDetailBean;
 import com.bean.simplenews.common.base.BasePresenter;
 import com.bean.simplenews.module.news.model.NewsDetailHelper;
 import com.bean.simplenews.module.news.view.NewsDetailView;
+import com.bean.simplenews.util.ToastUtils;
 
 import java.util.Iterator;
 
@@ -29,15 +31,23 @@ public class NewsDetailPresenter extends BasePresenter<NewsDetailView> implement
 
     @Override
     public void onSuccess(NewsDetailBean newsDetailBean) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (obtainView() != null){
+                    obtainView().hideProgress();
+                }
+            }
+        },2000);
         if(newsDetailBean != null) {
             obtainView().showNewsDetailContent(parse(newsDetailBean));
         }
-        obtainView().hideProgress();
     }
 
     @Override
     public void onFailure(Throwable t) {
         obtainView().hideProgress();
+        obtainView().showFailContent();
     }
 
     private String parse(NewsDetailBean newsDetailBean) {
