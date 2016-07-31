@@ -7,15 +7,21 @@ An android news reader, which is an example for the framework with MVP + Retrofi
 ![2](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img2-2.png)
 ![3](https://raw.githubusercontent.com/binzhihao/Reader/master/image/img3-3.png)
 
-# Todo
+# Change Log
+### v1.1.0
+* adding cache to save traffic
+* paging RecyclerView to reduce memory occupied
+### v1.0.0
+* improving MVP
+* improving appearance
+### v0.9.0
+* initialization
 
-* cache
-* improve performance ( more rx and less layout ... )
+# Todo
+* improve performance ( less memory occupied, flat layout and more rx... )
 * get replies of each news
-* login and reply
 
 # Feedback
-
 binzhihao@outlook.com
 
 # License
