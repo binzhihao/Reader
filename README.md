@@ -11,9 +11,11 @@ An android news reader, which is an example for the framework with MVP + Retrofi
 ### v1.1.0
 * adding cache to save traffic
 * paging RecyclerView to reduce memory occupied
+
 ### v1.0.0
 * improving MVP
 * improving appearance
+
 ### v0.9.0
 * initialization
 
