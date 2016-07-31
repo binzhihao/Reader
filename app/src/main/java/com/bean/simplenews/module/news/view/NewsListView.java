@@ -7,11 +7,7 @@ import java.util.List;
 
 public interface NewsListView extends MVPView{
 
-    void addNews(List<NewsBean> newsList);
-
-    void showFooterProgress();
-
-    void hideFooterProgress();
+    void setNewsData(List<NewsBean> newsList, boolean isUp);
 
     void showLoadFailure();
 

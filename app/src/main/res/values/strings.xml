@@ -20,6 +20,7 @@
     <string name="reply">跟帖</string>
     <string name="loading">正在加载</string>
     <string name="load_fail">加载数据失败!</string>
+    <string name="load_no_data">没有数据了</string>
     <string name="exit_message">再按一次退出应用</string>
     <string name="hello_blank_fragment">^_^ 程序猿罢工啦暂时还木有上线 ^_^</string>
     <string name="about_text">^_^ 低仿网易新闻4.x版本客户端 ^_^</string>
